@@ -4,519 +4,278 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kitabım — Məxfilik Siyasəti və İstifadə Şərtləri</title>
+<meta name="description" content="Kitabım tətbiqinin məxfilik siyasəti, istifadə şərtləri və hesab silmə qaydaları.">
 <style>
+  :root {
+    --ink:       #1c1917;
+    --ink-soft:  #44403c;
+    --muted:     #78716c;
+    --line:      #ece9e4;
+    --paper:     #faf9f7;
+    --card:      #ffffff;
+    --accent:    #9a6a3c;   /* literary amber/brown */
+    --accent-bg: #f6efe7;
+    --warn-bg:   #fdf6e9;
+    --warn-line: #d8a23a;
+    --danger-bg: #fbf0ee;
+    --danger-line:#c0563f;
+    --radius:    16px;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.6;
-    color: #1a1a1a;
-    background: #f7f7f8;
-    padding: 20px;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    background:
+      radial-gradient(1200px 600px at 50% -200px, #f3ece2 0%, rgba(243,236,226,0) 60%),
+      var(--paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    padding: 32px 18px 64px;
   }
-  .container {
-    max-width: 760px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  /* ---- Header ---- */
+  header { text-align: center; padding: 24px 0 8px; }
+  .logo {
+    width: 64px; height: 64px; margin: 0 auto 18px;
+    display: grid; place-items: center;
+    font-size: 30px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(28,25,23,0.06);
   }
-  header {
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+  h1 {
+    font-size: clamp(26px, 5vw, 34px);
+    font-weight: 800; letter-spacing: -0.02em;
+    color: var(--ink); line-height: 1.2;
   }
-  h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
-  .subtitle { color: #666; font-size: 14px; }
-  .lang-switcher {
-    display: flex;
-    gap: 8px;
-    margin: 20px 0 30px;
-    flex-wrap: wrap;
+  .tagline { color: var(--muted); font-size: 15px; margin-top: 8px; }
+  .updated {
+    display: inline-block; margin-top: 18px;
+    font-size: 13px; color: var(--accent); font-weight: 600;
+    background: var(--accent-bg);
+    padding: 6px 14px; border-radius: 999px;
   }
-  .lang-btn {
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.15s;
-  }
-  .lang-btn:hover { background: #f0f0f0; }
-  .lang-btn.active {
-    background: #1a73e8;
-    color: #fff;
-    border-color: #1a73e8;
-  }
+
+  /* ---- TOC ---- */
   nav.toc {
-    background: #f8f9fa;
-    padding: 16px 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
+    margin: 36px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
   }
   nav.toc a {
-    display: block;
-    color: #1a73e8;
-    text-decoration: none;
-    padding: 4px 0;
-    font-size: 14px;
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--ink);
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 13px 16px;
+    font-size: 14.5px; font-weight: 600;
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
   }
-  nav.toc a:hover { text-decoration: underline; }
+  nav.toc a:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(28,25,23,0.06);
+  }
+  nav.toc a .n {
+    color: var(--accent); font-weight: 800; font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- Sections ---- */
+  section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px 28px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 2px rgba(28,25,23,0.03);
+  }
   h2 {
-    font-size: 22px;
-    font-weight: 700;
-    margin: 40px 0 16px;
-    padding-top: 10px;
-    border-top: 1px solid #f0f0f0;
+    font-size: 21px; font-weight: 800; letter-spacing: -0.01em;
+    color: var(--ink); margin-bottom: 6px;
+    display: flex; align-items: baseline; gap: 10px;
   }
-  h2:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  h2 .n {
+    font-size: 14px; color: var(--accent); font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+  .lead { color: var(--muted); margin-bottom: 18px; font-size: 15px; }
   h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 20px 0 8px;
-    color: #333;
+    font-size: 15.5px; font-weight: 700; color: var(--ink);
+    margin: 22px 0 8px;
   }
-  p { margin-bottom: 12px; color: #333; }
-  ul { margin: 8px 0 16px 24px; }
-  li { margin-bottom: 6px; }
-  .updated {
-    background: #fff8e1;
-    padding: 12px 16px;
-    border-left: 4px solid #fbc02d;
-    border-radius: 4px;
-    margin-bottom: 24px;
-    font-size: 14px;
+  p { margin-bottom: 12px; }
+  ul { margin: 6px 0 14px; padding-left: 0; list-style: none; }
+  ul li {
+    position: relative; padding-left: 24px; margin-bottom: 9px;
   }
-  .contact-box {
-    background: #e8f0fe;
-    padding: 16px 20px;
-    border-radius: 8px;
-    margin: 24px 0;
+  ul li::before {
+    content: ""; position: absolute; left: 6px; top: 11px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
   }
-  .contact-box a {
-    color: #1a73e8;
-    text-decoration: none;
-    font-weight: 600;
+  strong { color: var(--ink); font-weight: 600; }
+
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+  .pill {
+    font-size: 13px; font-weight: 600; color: var(--ink-soft);
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 6px 12px; border-radius: 999px;
+  }
+
+  .note {
+    background: var(--warn-bg);
+    border: 1px solid #f0e2c2;
+    border-left: 3px solid var(--warn-line);
+    border-radius: 12px;
+    padding: 14px 18px; font-size: 14px; margin: 16px 0;
   }
   .delete-box {
-    background: #fef7f6;
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid #ea4335;
-    margin: 24px 0;
+    background: var(--danger-bg);
+    border: 1px solid #f0d8d2;
+    border-left: 3px solid var(--danger-line);
+    border-radius: 12px;
+    padding: 18px 20px; margin-top: 6px;
   }
-  .delete-box ol { margin-left: 20px; margin-top: 10px; }
-  .delete-box li { margin-bottom: 8px; }
-  .lang-content { display: none; }
-  .lang-content.active { display: block; }
+  .delete-box ol { margin: 12px 0 6px 20px; }
+  .delete-box ol li { margin-bottom: 10px; }
+
+  .contact {
+    text-align: center; padding: 26px;
+  }
+  .contact a.mail {
+    display: inline-block; margin-top: 8px;
+    font-size: 17px; font-weight: 700; color: var(--accent);
+    text-decoration: none;
+  }
+  .contact a.mail:hover { text-decoration: underline; }
+  a { color: var(--accent); }
+
   footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #f0f0f0;
-    color: #888;
-    font-size: 13px;
-    text-align: center;
+    text-align: center; margin-top: 34px;
+    color: var(--muted); font-size: 13px;
   }
-  @media (max-width: 600px) {
-    body { padding: 12px; }
-    .container { padding: 24px 20px; }
-    h1 { font-size: 22px; }
-    h2 { font-size: 18px; }
+  footer a { color: var(--muted); text-decoration: none; }
+
+  @media (max-width: 560px) {
+    nav.toc { grid-template-columns: 1fr; }
+    section { padding: 24px 20px; }
   }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<div class="container">
   <header>
-    <h1>📚 Kitabım</h1>
-    <p class="subtitle">Privacy Policy · Terms of Use · Account Deletion</p>
+    <div class="logo">📚</div>
+    <h1>Kitabım</h1>
+    <p class="tagline">Məxfilik Siyasəti · İstifadə Şərtləri · Hesabın Silinməsi</p>
+    <span class="updated">Son yenilənmə: 10 İyun 2026</span>
   </header>
 
-  <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="az">Azərbaycan</button>
-    <button class="lang-btn" data-lang="tr">Türkçe</button>
-    <button class="lang-btn" data-lang="en">English</button>
-    <button class="lang-btn" data-lang="ru">Русский</button>
-  </div>
+  <nav class="toc">
+    <a href="#privacy"><span class="n">01</span> Məxfilik Siyasəti</a>
+    <a href="#terms"><span class="n">02</span> İstifadə Şərtləri</a>
+    <a href="#delete"><span class="n">03</span> Hesabın Silinməsi</a>
+    <a href="#contact"><span class="n">04</span> Əlaqə</a>
+  </nav>
 
-  <!-- ============ AZ ============ -->
-  <div class="lang-content active" data-lang="az">
-    <div class="updated">Son yenilənmə: 24 May 2026</div>
+  <!-- 01 — PRIVACY -->
+  <section id="privacy">
+    <h2><span class="n">01</span> Məxfilik Siyasəti</h2>
+    <p class="lead">Kitabım istifadəçilərinin məlumatlarını qoruyur və şəffaflığa önəm verir. Bu bölmə hansı məlumatları, niyə və necə topladığımızı izah edir.</p>
 
-    <nav class="toc">
-      <a href="#az-privacy">1. Məxfilik Siyasəti</a>
-      <a href="#az-terms">2. İstifadə Şərtləri</a>
-      <a href="#az-delete">3. Hesabın Silinməsi</a>
-      <a href="#az-contact">4. Əlaqə</a>
-    </nav>
-
-    <h2 id="az-privacy">1. Məxfilik Siyasəti</h2>
-    <p>Kitabım tətbiqi istifadəçilərin şəxsi məlumatlarına hörmətlə yanaşır.</p>
-
-    <h3>Toplanılan məlumatlar</h3>
+    <h3>Topladığımız məlumatlar</h3>
     <ul>
-      <li>Qeydiyyat zamanı ad və e-poçt ünvanı</li>
-      <li>Google ilə daxil olduqda Google tərəfindən təqdim edilən ad və e-poçt</li>
-      <li>İlan yerləşdirərkən kamera ilə çəkdiyiniz kitab şəkilləri</li>
-      <li>WhatsApp nömrəsi (yalnız siz əlavə etdiyiniz təqdirdə, alıcılarla əlaqə üçün)</li>
-      <li>Texniki məlumatlar: cihaz növü, əməliyyat sistemi versiyası (Crashlytics vasitəsilə xəta hesabatları üçün)</li>
+      <li><strong>Hesab məlumatları</strong> — qeydiyyat zamanı ad və e-poçt ünvanınız. Google ilə daxil olduqda bunlar Google tərəfindən təqdim edilir.</li>
+      <li><strong>Profil məlumatları</strong> — əlavə etdiyiniz təqdirdə bio, avatar, şəhər/ünvan və çatdırılma seçimləri.</li>
+      <li><strong>Əlaqə nömrəsi</strong> — yalnız siz əlavə etdikdə, alıcıların sizinlə əlaqə saxlaya bilməsi üçün (məsələn WhatsApp).</li>
+      <li><strong>Elan məzmunu</strong> — kamera ilə çəkdiyiniz kitab şəkilləri və yazdığınız elan mətnləri.</li>
+      <li><strong>İstifadə və qarşılıqlı əlaqə məlumatları</strong> — təcrübənizi yaxşılaşdırmaq və tətbiqi inkişaf etdirmək üçün tətbiqdaxili istifadə məlumatları (baxılan bölmələr, axtarışlar, tətbiqlə qarşılıqlı əlaqə) toplanır.</li>
+      <li><strong>Texniki məlumatlar</strong> — tətbiqin sabit işləməsi üçün cihaz növü və əməliyyat sistemi versiyası kimi anonim xəta hesabatları.</li>
     </ul>
 
-    <h3>Məlumatların istifadəsi</h3>
-    <p>Məlumatlarınız yalnız platformanın işləməsini təmin etmək üçün istifadə olunur. Heç bir şəxsi məlumat üçüncü tərəflərə satılmır və ya marketinq məqsədilə ötürülmür.</p>
+    <h3>Məlumatları necə istifadə edirik</h3>
+    <p>Topladığımız məlumatlar yalnız platformanın işləməsi, təhlükəsizliyi və təcrübənin yaxşılaşdırılması üçün istifadə olunur. <strong>Heç bir şəxsi məlumat üçüncü tərəflərə satılmır</strong> və ya marketinq məqsədilə ötürülmür.</p>
 
-    <h3>Məlumat təhlükəsizliyi</h3>
-    <p>Bütün məlumatlar Supabase platformasında şifrələnmiş şəkildə saxlanılır. Google ilə daxil olduqda Google-ın öz təhlükəsizlik standartları tətbiq edilir.</p>
+    <h3>Məlumatların təhlükəsizliyi</h3>
+    <p>Bütün məlumatlar şifrələnmiş şəkildə saxlanılır. Hesabınıza yalnız sizin daxil ola biləcəyiniz qaydada qorunur; başqa istifadəçilər yalnız sizin açıq paylaşdığınız (məsələn elan və satıcı profili) məlumatları görür.</p>
 
     <h3>Üçüncü tərəf xidmətləri</h3>
-    <ul>
-      <li><strong>Supabase</strong> — Məlumat bazası və autentifikasiya</li>
-      <li><strong>Google Sign-In</strong> — Sosial giriş</li>
-      <li><strong>Firebase Crashlytics</strong> — Xəta hesabatları (anonim, fərdi məlumat ehtiva etmir)</li>
-      <li><strong>OpenRouter / Gemini</strong> — Kitab şəkillərindən məlumat çıxarılması (şəkillər saxlanılmır)</li>
-    </ul>
+    <div class="pill-row">
+      <span class="pill">Supabase — baza &amp; autentifikasiya</span>
+      <span class="pill">Google Sign-In — giriş</span>
+      <span class="pill">Firebase Crashlytics — xəta hesabatları</span>
+      <span class="pill">Google / Gemini — şəkildən mətn oxuma</span>
+    </div>
+    <p style="margin-top:12px; font-size:14px; color:var(--muted)">Kitab şəkilləri yalnız başlıq/müəllif məlumatını çıxarmaq üçün emal edilir və bu xidmətlərdə saxlanılmır.</p>
 
     <h3>İcazələr</h3>
     <ul>
-      <li><strong>Kamera</strong> — Kitab şəkli çəkmək üçün</li>
-      <li><strong>İnternet</strong> — Platforma xidmətlərinə qoşulmaq üçün</li>
+      <li><strong>Kamera</strong> — kitab şəkli çəkmək üçün.</li>
+      <li><strong>İnternet</strong> — platforma xidmətlərinə qoşulmaq üçün.</li>
     </ul>
 
-    <h2 id="az-terms">2. İstifadə Şərtləri</h2>
-    <p>Kitabım tətbiqindən istifadə etməklə aşağıdakı qaydaları qəbul etmiş olursunuz.</p>
+    <div class="note">
+      Tətbiqi yenilədikcə bu siyasət də yenilənə bilər. Əhəmiyyətli dəyişikliklər tətbiq daxilində bildirilir.
+    </div>
+  </section>
+
+  <!-- 02 — TERMS -->
+  <section id="terms">
+    <h2><span class="n">02</span> İstifadə Şərtləri</h2>
+    <p class="lead">Kitabım tətbiqindən istifadə etməklə aşağıdakı qaydaları qəbul etmiş olursunuz.</p>
 
     <h3>Xidmətin təyinatı</h3>
-    <p>Kitabım — istifadəçilər arasında kitab alqı-satqısı və mübadiləsi üçün nəzərdə tutulmuş platformadır.</p>
+    <p>Kitabım — istifadəçilər arasında kitab alqı-satqısı və mübadiləsi üçün nəzərdə tutulmuş platformadır. Tətbiq satıcı ilə alıcını bir araya gətirir; razılaşma və ödəniş birbaşa istifadəçilər arasında baş tutur.</p>
 
     <h3>İstifadəçinin öhdəlikləri</h3>
     <ul>
-      <li>Yerləşdirdiyiniz ilanlar həqiqi olmalıdır</li>
-      <li>Yanlış kitab məlumatı, saxta qiymət və ya aldadıcı məzmun qadağandır</li>
-      <li>Digər istifadəçilərə qarşı hörmətli davranmaq məcburidir</li>
-      <li>Müəllif hüquqlarını pozan məzmun yerləşdirmək qadağandır</li>
+      <li>Yerləşdirdiyiniz elanlar həqiqi və düzgün olmalıdır.</li>
+      <li>Yanlış kitab məlumatı, aldadıcı qiymət və ya yanıltıcı məzmun qadağandır.</li>
+      <li>Digər istifadəçilərə hörmətlə yanaşmaq məcburidir.</li>
+      <li>Müəllif hüquqlarını pozan və ya qanunsuz məzmun qadağandır.</li>
     </ul>
 
     <h3>Qadağan olunan hərəkətlər</h3>
     <ul>
-      <li>Saxta hesab açmaq</li>
-      <li>Kütləvi istənməyən mesaj göndərmək</li>
-      <li>Pirat və ya qeyri-qanuni məzmun yerləşdirmək</li>
+      <li>Saxta hesab açmaq və ya başqasının kimliyindən istifadə etmək.</li>
+      <li>Kütləvi istənməyən mesaj (spam) göndərmək.</li>
+      <li>Pirat, saxta və ya qeyri-qanuni məhsul yerləşdirmək.</li>
     </ul>
 
-    <h3>İlanların qaldırılması</h3>
-    <p>Şikayət daxil olduqda və ya qaydalar pozulduqda ilanlar əvvəlcədən xəbərdarlıq edilmədən qaldırıla bilər.</p>
+    <h3>Moderasiya və elanların qaldırılması</h3>
+    <p>Elanlar avtomatik və əl ilə yoxlanıla bilər. Şikayət daxil olduqda və ya qaydalar pozulduqda elan əvvəlcədən xəbərdarlıq edilmədən qaldırıla, hesab müvəqqəti və ya daimi məhdudlaşdırıla bilər.</p>
 
     <h3>Məsuliyyətin hüdudu</h3>
-    <p>Kitabım istifadəçilər arasında baş verən alqı-satqı əməliyyatlarına görə hüquqi məsuliyyət daşımır. Bütün razılaşmalar birbaşa istifadəçilər arasındadır.</p>
+    <p>Kitabım istifadəçilər arasında baş verən alqı-satqı əməliyyatlarına, məhsulun keyfiyyətinə və ya çatdırılmaya görə hüquqi məsuliyyət daşımır. Bütün razılaşmalar birbaşa tərəflər arasındadır.</p>
+  </section>
 
-    <h2 id="az-delete">3. Hesabın Silinməsi</h2>
+  <!-- 03 — DELETE -->
+  <section id="delete">
+    <h2><span class="n">03</span> Hesabın Silinməsi</h2>
+    <p class="lead">Hesabınızı və bütün məlumatlarınızı istənilən vaxt silə bilərsiniz.</p>
     <div class="delete-box">
-      <p><strong>Hesabınızı istənilən vaxt silə bilərsiniz.</strong></p>
       <ol>
-        <li><strong>Tətbiq daxilindən:</strong> Profil → Tənzimləmələr → <em>Hesabı Sil</em></li>
-        <li><strong>Tətbiqsiz:</strong> <a href="mailto:kitabim.app@gmail.com?subject=Hesab%20Silmə%20Tələbi">kitabim.app@gmail.com</a> ünvanına qeydiyyat e-poçtunuzdan müraciət edin. Hesabınız 7 gün ərzində silinəcəkdir.</li>
+        <li><strong>Tətbiq daxilindən:</strong> Profil → Tənzimləmələr → <em>Hesabı Sil</em>. Hesab dərhal silinir.</li>
+        <li><strong>Tətbiqsiz:</strong> qeydiyyatdan keçdiyiniz e-poçtdan <a href="mailto:kitabim.app@gmail.com?subject=Hesab%20Silm%C9%99%20T%C9%99l%C9%99bi">kitabim.app@gmail.com</a> ünvanına yazın — hesabınız 7 gün ərzində silinəcək.</li>
       </ol>
-      <p style="margin-top:12px"><strong>Silinəcək məlumatlar:</strong> profil, ilanlar, şəkillər, mesajlar — hamısı tamamilə qaldırılır və geri qaytarılmır.</p>
+      <p style="margin-top:8px"><strong>Silinəcək məlumatlar:</strong> profil, elanlar, şəkillər və əlaqəli bütün məlumatlar tamamilə qaldırılır və geri qaytarılmır.</p>
     </div>
+  </section>
 
-    <h2 id="az-contact">4. Əlaqə</h2>
-    <div class="contact-box">
-      <p>Suallarınız üçün: <a href="mailto:kitabim.app@gmail.com">kitabim.app@gmail.com</a></p>
-    </div>
-  </div>
-
-  <!-- ============ TR ============ -->
-  <div class="lang-content" data-lang="tr">
-    <div class="updated">Son güncelleme: 24 Mayıs 2026</div>
-
-    <nav class="toc">
-      <a href="#tr-privacy">1. Gizlilik Politikası</a>
-      <a href="#tr-terms">2. Kullanım Şartları</a>
-      <a href="#tr-delete">3. Hesap Silme</a>
-      <a href="#tr-contact">4. İletişim</a>
-    </nav>
-
-    <h2 id="tr-privacy">1. Gizlilik Politikası</h2>
-    <p>Kitabım uygulaması kullanıcıların kişisel verilerine saygıyla yaklaşır.</p>
-
-    <h3>Toplanan veriler</h3>
-    <ul>
-      <li>Kayıt sırasında ad ve e-posta adresi</li>
-      <li>Google ile giriş yapıldığında Google tarafından sağlanan ad ve e-posta</li>
-      <li>İlan eklerken kamera ile çekilen kitap fotoğrafları</li>
-      <li>WhatsApp numarası (yalnızca eklediğinizde, alıcılarla iletişim için)</li>
-      <li>Teknik veriler: cihaz tipi, OS versiyonu (Crashlytics ile hata raporları için)</li>
-    </ul>
-
-    <h3>Verilerin kullanımı</h3>
-    <p>Verileriniz yalnızca platformun çalışmasını sağlamak için kullanılır. Hiçbir kişisel veri üçüncü taraflara satılmaz veya pazarlama amacıyla aktarılmaz.</p>
-
-    <h3>Veri güvenliği</h3>
-    <p>Tüm veriler Supabase platformunda şifrelenmiş şekilde saklanır. Google ile giriş yapıldığında Google'ın kendi güvenlik standartları uygulanır.</p>
-
-    <h3>Üçüncü taraf hizmetler</h3>
-    <ul>
-      <li><strong>Supabase</strong> — Veritabanı ve kimlik doğrulama</li>
-      <li><strong>Google Sign-In</strong> — Sosyal giriş</li>
-      <li><strong>Firebase Crashlytics</strong> — Hata raporları (anonim, kişisel veri içermez)</li>
-      <li><strong>OpenRouter / Gemini</strong> — Kitap fotoğraflarından veri çıkarımı (fotoğraflar saklanmaz)</li>
-    </ul>
-
-    <h3>İzinler</h3>
-    <ul>
-      <li><strong>Kamera</strong> — Kitap fotoğrafı çekmek için</li>
-      <li><strong>İnternet</strong> — Platform hizmetlerine bağlanmak için</li>
-    </ul>
-
-    <h2 id="tr-terms">2. Kullanım Şartları</h2>
-    <p>Kitabım uygulamasını kullanarak aşağıdaki kuralları kabul etmiş olursunuz.</p>
-
-    <h3>Hizmetin amacı</h3>
-    <p>Kitabım — kullanıcılar arasında kitap alım-satımı ve takası için tasarlanmış bir platformdur.</p>
-
-    <h3>Kullanıcı yükümlülükleri</h3>
-    <ul>
-      <li>Yayınladığınız ilanlar gerçek olmalıdır</li>
-      <li>Yanlış kitap bilgisi, sahte fiyat veya yanıltıcı içerik yasaktır</li>
-      <li>Diğer kullanıcılara karşı saygılı davranmak zorunludur</li>
-      <li>Telif hakkı ihlali yapan içerik yasaktır</li>
-    </ul>
-
-    <h3>Yasak hareketler</h3>
-    <ul>
-      <li>Sahte hesap açmak</li>
-      <li>Toplu istenmeyen mesaj göndermek</li>
-      <li>Korsan veya yasa dışı içerik yayınlamak</li>
-    </ul>
-
-    <h3>İlanların kaldırılması</h3>
-    <p>Şikayet alındığında veya kurallar ihlal edildiğinde ilanlar önceden uyarı yapılmadan kaldırılabilir.</p>
-
-    <h3>Sorumluluk sınırı</h3>
-    <p>Kitabım, kullanıcılar arasında gerçekleşen alım-satım işlemlerinden hukuki sorumluluk taşımaz. Tüm anlaşmalar doğrudan kullanıcılar arasındadır.</p>
-
-    <h2 id="tr-delete">3. Hesap Silme</h2>
-    <div class="delete-box">
-      <p><strong>Hesabınızı istediğiniz zaman silebilirsiniz.</strong></p>
-      <ol>
-        <li><strong>Uygulama içinden:</strong> Profil → Ayarlar → <em>Hesabı Sil</em></li>
-        <li><strong>Uygulama olmadan:</strong> <a href="mailto:kitabim.app@gmail.com?subject=Hesap%20Silme%20Talebi">kitabim.app@gmail.com</a> adresine kayıtlı e-postanızdan başvurun. Hesabınız 7 gün içinde silinecektir.</li>
-      </ol>
-      <p style="margin-top:12px"><strong>Silinecek veriler:</strong> profil, ilanlar, fotoğraflar, mesajlar — hepsi tamamen kaldırılır ve geri getirilemez.</p>
-    </div>
-
-    <h2 id="tr-contact">4. İletişim</h2>
-    <div class="contact-box">
-      <p>Sorularınız için: <a href="mailto:kitabim.app@gmail.com">kitabim.app@gmail.com</a></p>
-    </div>
-  </div>
-
-  <!-- ============ EN ============ -->
-  <div class="lang-content" data-lang="en">
-    <div class="updated">Last updated: May 24, 2026</div>
-
-    <nav class="toc">
-      <a href="#en-privacy">1. Privacy Policy</a>
-      <a href="#en-terms">2. Terms of Use</a>
-      <a href="#en-delete">3. Account Deletion</a>
-      <a href="#en-contact">4. Contact</a>
-    </nav>
-
-    <h2 id="en-privacy">1. Privacy Policy</h2>
-    <p>Kitabım respects the privacy of its users.</p>
-
-    <h3>Data we collect</h3>
-    <ul>
-      <li>Name and email address during registration</li>
-      <li>Name and email provided by Google when signing in with Google</li>
-      <li>Book photos taken with the camera when posting a listing</li>
-      <li>WhatsApp number (only if you add it, for contacting buyers)</li>
-      <li>Technical data: device type, OS version (via Crashlytics for crash reports)</li>
-    </ul>
-
-    <h3>How we use your data</h3>
-    <p>Your data is used solely to operate the platform. No personal data is sold to third parties or used for marketing purposes.</p>
-
-    <h3>Data security</h3>
-    <p>All data is stored encrypted on the Supabase platform. When signing in with Google, Google's own security standards apply.</p>
-
-    <h3>Third-party services</h3>
-    <ul>
-      <li><strong>Supabase</strong> — Database and authentication</li>
-      <li><strong>Google Sign-In</strong> — Social login</li>
-      <li><strong>Firebase Crashlytics</strong> — Crash reports (anonymous, no personal data)</li>
-      <li><strong>OpenRouter / Gemini</strong> — Extracting data from book images (images are not stored)</li>
-    </ul>
-
-    <h3>Permissions</h3>
-    <ul>
-      <li><strong>Camera</strong> — To take book photos</li>
-      <li><strong>Internet</strong> — To connect to platform services</li>
-    </ul>
-
-    <h2 id="en-terms">2. Terms of Use</h2>
-    <p>By using Kitabım, you agree to the following rules.</p>
-
-    <h3>Service purpose</h3>
-    <p>Kitabım is a platform for buying, selling, and swapping books between users.</p>
-
-    <h3>User obligations</h3>
-    <ul>
-      <li>Listings you post must be genuine</li>
-      <li>False book information, fake prices, or misleading content is prohibited</li>
-      <li>Respectful behavior toward other users is required</li>
-      <li>Content that infringes copyright is prohibited</li>
-    </ul>
-
-    <h3>Prohibited actions</h3>
-    <ul>
-      <li>Creating fake accounts</li>
-      <li>Sending mass unsolicited messages</li>
-      <li>Posting pirated or illegal content</li>
-    </ul>
-
-    <h3>Listing removal</h3>
-    <p>Listings may be removed without prior notice upon receiving a report or for violating the rules.</p>
-
-    <h3>Limitation of liability</h3>
-    <p>Kitabım is not legally liable for transactions between users. All agreements are made directly between users.</p>
-
-    <h2 id="en-delete">3. Account Deletion</h2>
-    <div class="delete-box">
-      <p><strong>You can delete your account at any time.</strong></p>
-      <ol>
-        <li><strong>From the app:</strong> Profile → Settings → <em>Delete Account</em></li>
-        <li><strong>Without the app:</strong> Email <a href="mailto:kitabim.app@gmail.com?subject=Account%20Deletion%20Request">kitabim.app@gmail.com</a> from your registered email address. Your account will be deleted within 7 days.</li>
-      </ol>
-      <p style="margin-top:12px"><strong>Data to be deleted:</strong> profile, listings, photos, messages — all permanently removed and cannot be recovered.</p>
-    </div>
-
-    <h2 id="en-contact">4. Contact</h2>
-    <div class="contact-box">
-      <p>For questions: <a href="mailto:kitabim.app@gmail.com">kitabim.app@gmail.com</a></p>
-    </div>
-  </div>
-
-  <!-- ============ RU ============ -->
-  <div class="lang-content" data-lang="ru">
-    <div class="updated">Последнее обновление: 24 мая 2026</div>
-
-    <nav class="toc">
-      <a href="#ru-privacy">1. Политика конфиденциальности</a>
-      <a href="#ru-terms">2. Условия использования</a>
-      <a href="#ru-delete">3. Удаление аккаунта</a>
-      <a href="#ru-contact">4. Контакты</a>
-    </nav>
-
-    <h2 id="ru-privacy">1. Политика конфиденциальности</h2>
-    <p>Kitabım уважает конфиденциальность своих пользователей.</p>
-
-    <h3>Собираемые данные</h3>
-    <ul>
-      <li>Имя и адрес электронной почты при регистрации</li>
-      <li>Имя и email от Google при входе через Google</li>
-      <li>Фотографии книг, сделанные камерой при публикации объявления</li>
-      <li>Номер WhatsApp (только если вы добавите, для связи с покупателями)</li>
-      <li>Технические данные: тип устройства, версия ОС (через Crashlytics для отчетов об ошибках)</li>
-    </ul>
-
-    <h3>Использование данных</h3>
-    <p>Ваши данные используются исключительно для работы платформы. Никакие личные данные не продаются третьим лицам и не используются в маркетинговых целях.</p>
-
-    <h3>Безопасность данных</h3>
-    <p>Все данные хранятся в зашифрованном виде на платформе Supabase. При входе через Google применяются собственные стандарты безопасности Google.</p>
-
-    <h3>Сторонние сервисы</h3>
-    <ul>
-      <li><strong>Supabase</strong> — База данных и аутентификация</li>
-      <li><strong>Google Sign-In</strong> — Социальный вход</li>
-      <li><strong>Firebase Crashlytics</strong> — Отчеты об ошибках (анонимные, без личных данных)</li>
-      <li><strong>OpenRouter / Gemini</strong> — Извлечение данных из изображений книг (изображения не сохраняются)</li>
-    </ul>
-
-    <h3>Разрешения</h3>
-    <ul>
-      <li><strong>Камера</strong> — Для съёмки книг</li>
-      <li><strong>Интернет</strong> — Для подключения к сервисам платформы</li>
-    </ul>
-
-    <h2 id="ru-terms">2. Условия использования</h2>
-    <p>Используя Kitabım, вы соглашаетесь со следующими правилами.</p>
-
-    <h3>Назначение сервиса</h3>
-    <p>Kitabım — платформа для купли-продажи и обмена книг между пользователями.</p>
-
-    <h3>Обязанности пользователя</h3>
-    <ul>
-      <li>Размещаемые объявления должны быть достоверными</li>
-      <li>Запрещены ложная информация о книге, поддельные цены или вводящий в заблуждение контент</li>
-      <li>Обязательно уважительное отношение к другим пользователям</li>
-      <li>Запрещён контент, нарушающий авторские права</li>
-    </ul>
-
-    <h3>Запрещённые действия</h3>
-    <ul>
-      <li>Создание фейковых аккаунтов</li>
-      <li>Массовая нежелательная рассылка</li>
-      <li>Размещение пиратского или незаконного контента</li>
-    </ul>
-
-    <h3>Удаление объявлений</h3>
-    <p>Объявления могут быть удалены без предварительного уведомления при получении жалобы или нарушении правил.</p>
-
-    <h3>Ограничение ответственности</h3>
-    <p>Kitabım не несёт юридической ответственности за сделки между пользователями. Все соглашения заключаются напрямую между пользователями.</p>
-
-    <h2 id="ru-delete">3. Удаление аккаунта</h2>
-    <div class="delete-box">
-      <p><strong>Вы можете удалить аккаунт в любое время.</strong></p>
-      <ol>
-        <li><strong>Через приложение:</strong> Профиль → Настройки → <em>Удалить аккаунт</em></li>
-        <li><strong>Без приложения:</strong> отправьте письмо на <a href="mailto:kitabim.app@gmail.com?subject=Запрос%20на%20удаление%20аккаунта">kitabim.app@gmail.com</a> с зарегистрированной электронной почты. Аккаунт будет удалён в течение 7 дней.</li>
-      </ol>
-      <p style="margin-top:12px"><strong>Удаляемые данные:</strong> профиль, объявления, фотографии, сообщения — всё полностью удаляется и не подлежит восстановлению.</p>
-    </div>
-
-    <h2 id="ru-contact">4. Контакты</h2>
-    <div class="contact-box">
-      <p>По вопросам: <a href="mailto:kitabim.app@gmail.com">kitabim.app@gmail.com</a></p>
-    </div>
-  </div>
+  <!-- 04 — CONTACT -->
+  <section id="contact" class="contact">
+    <h2 style="justify-content:center"><span class="n">04</span> Əlaqə</h2>
+    <p class="lead" style="margin-bottom:4px">Sual, təklif və ya şikayətləriniz üçün bizimlə əlaqə saxlayın.</p>
+    <a class="mail" href="mailto:kitabim.app@gmail.com">kitabim.app@gmail.com</a>
+  </section>
 
   <footer>
-    © 2026 Kitabım · <a href="mailto:kitabim.app@gmail.com" style="color:#888">kitabim.app@gmail.com</a>
+    © 2026 Kitabım · <a href="mailto:kitabim.app@gmail.com">kitabim.app@gmail.com</a>
   </footer>
+
 </div>
-
-<script>
-  const buttons = document.querySelectorAll('.lang-btn');
-  const contents = document.querySelectorAll('.lang-content');
-
-  function setLang(lang) {
-    buttons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-    contents.forEach(c => c.classList.toggle('active', c.dataset.lang === lang));
-    document.documentElement.lang = lang;
-    try { localStorage.setItem('kitabim_lang', lang); } catch (e) {}
-  }
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => setLang(btn.dataset.lang));
-  });
-
-  // Restore last selected language
-  try {
-    const saved = localStorage.getItem('kitabim_lang');
-    if (saved && ['az','tr','en','ru'].includes(saved)) setLang(saved);
-  } catch (e) {}
-
-  // Browser-based default
-  if (!localStorage.getItem('kitabim_lang')) {
-    const browserLang = (navigator.language || 'az').slice(0,2).toLowerCase();
-    if (['tr','en','ru'].includes(browserLang)) setLang(browserLang);
-  }
-</script>
-
 </body>
 </html>
